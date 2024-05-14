@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM</title>
+</head>
+<body>
+    
+    <div id="text">TEXT</div>
+
+    <div id="demo">Bu metin deyishmelidir</div>
+
+    <img id="myImage" src="oldImage.jpg">
+
+
+
+<br>
+<!-- 4cu tapshiriq -->
+
+<div id="myElement">
+    Bu element gizlenecek
+</div>
+<!--  -->
+<br>
+<div id="myElement2">
+    <!-- Buraya gizlenecek içerik gelebilir -->
+    Bu yazi toggle-dur 
+</div>
+<br>
+
+<button onclick="toggleVisibility()">Toggle button</button>
+
+<div id="container">
+  
+</div>
+
+<br>
+
+<!-- 7 -->
+<div id="elementem" class="highlight">
+    helloooooo
+</div>
+<br>
+
+<div id="text2">
+    
+    buttona bas ve sil
+
+</div>
+<button onclick="removeElement()">Remove Element</button>
+<br>
+<br>
+<!-- 9-cu tapshiriq -->
+<form id="myForm" onsubmit="return validateForm()">
+    <label for="email">E-posta:</label>
+    <input type="email" id="email" name="email">
+    <span id="emailError" style="color: red;"></span><br><br>
+    <input type="submit" value="Gönder">
+</form>
+<!--  -->
+<br>
+<br>
+
+
+<!-- 10 -->
+
+
+<form id="form" onsubmit="return validateForm()">
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br>
+    <label for="confirmPassword">Confirm Password:</label>
+    <input type="password" id="confirmPassword" name="confirmPassword" required>
+    <span id="error"></span><br>
+    
+    <button type="submit">Submit</button>
+</form>
+
+
+<!-- 11 -->
+<form id="Form3">
+    <textarea id="message" name="message" rows="4" cols="50" maxlength="100" oninput="yenile()"></textarea><br>
+    <span id="charCount">100</span> xarakter qaldi
+
+    <button type="submit">Gönder</button>
+</form>
+
+
+
+</body>
+<script>
+    // 1.
+     document.getElementById("text").textContent = "SALAM";
+
+    //2.
+    document.getElementById("demo").innerHTML = "<strong>Deyishmish metin</strong>";
+
+    //3.
+    var imageElement = document.getElementById("myImage");
+    imageElement.src = "newImage.jpg";
+
+
+
+    //4.
+    document.getElementById("myElement").style.display = "none";
+
+
+    //5.
+    function toggleVisibility() {
+            var element = document.getElementById("myElement2");
+            if (element.style.display === "none") {
+                element.style.display = "block"; 
+            } else {
+                element.style.display = "none";
+            }
+        }
+
+   //6.
+
+        var paragraph = document.createElement("p");
+        paragraph.textContent = "yaradilmish yeni metn";
+        var container = document.getElementById("container");
+        container.appendChild(paragraph);
+
+   //7.
+   var element = document.getElementById("elementem");
+//    console.log(element);
+        if (element.classList.contains("highlight")) {
+
+            console.log("bu elementde 'highlight' class-i movcuddur");
+        } else {
+            console.log("class-movcud deyil");
+        }
+
+// burda niye console-a cixarmadigini anlaya bilmedim 
+
+
+
+    //8.
+
+    function removeElement() {
+            var element = document.getElementById("text2");
+            element.remove();
+        }
+
+
+    //9.
+    document.getElementById("myForm").addEventListener("submit", function(event) {
+           
+            event.preventDefault();
+           
+            if (validateForm()) {
+              
+                this.submit();
+            }
+        });
+
+        
+        function validateForm() {
+            
+            var emailInput = document.getElementById("email");
+       
+            var email = emailInput.value;
+
+           
+            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                document.getElementById("emailError").textContent = "email adresi olmalidir";
+                return false;
+            } else {
+                document.getElementById("emailError").textContent = "";
+                return true;
+            }
+        }
+
+
+   //10.
+   function validateForm() {
+
+    e.preventDefault();
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+            var errorElement = document.getElementById("error");
+
+            if (password === confirmPassword) {
+                  
+                 errorElement.innerHTML = "okay"; 
+                   
+                } else {
+                   
+                    errorElement.innerHTML = "uygun deyil"; 
+                }
+        }
+
+
+//11.
+function yenile() {
+            var textarea = document.getElementById("message");
+            var charCount = document.getElementById("charCount");
+            var remainingChars = textarea.maxLength - textarea.value.length;
+            charCount.textContent = remainingChars;
+        }
+
+        document.getElementById("Form3").addEventListener("submit", function(e) {
+            var textarea = document.getElementById("message");
+            var remainingChars = textarea.maxLength - textarea.value.length;
+            if (remainingChars < 0) {
+                e.preventDefault();
+                alert("xarakter heddini ashdiniz");
+            }
+        });
+
+
+</script>
+</html>
